@@ -152,3 +152,5 @@ Le paquet de remise contient le code, les tests, des CSV fictifs, le rapport et 
 Commencer par [le guide pas à pas en français](docs/guide_didactique/Guide_pas_a_pas_Observatoire.docx) : 14 pages avec installation Windows, choix des vidéos, résultats attendus, versions logicielles, spécifications techniques et références officielles.
 
 Le paquet complet est disponible dans `livraison/Observatoire_multiagents_remise_2026-10-17_avec_guide.zip`. Le rapport et la présentation sont dans `docs/rapport_projet/`. Les CSV réels, les bases privées, les clés et le modèle téléchargé sont exclus du dépôt et du paquet.
+
+Voir aussi [le dictionnaire des programmes et de leurs interactions](docs/dictionnaire_programmes.md), avec sa [version Word illustrée en six pages](docs/guide_didactique/Dictionnaire_programmes_et_processus.docx).
