@@ -1,0 +1,11 @@
+{
+  "date": "2026-10-17",
+  "archive": "Observatoire_multiagents_remise_2026-10-16.zip",
+  "sha256": "429ba61bfb6aa22f6be6621b19b72d234f0e7c47b6ff67573de22388db76d165",
+  "fichiers_verifies": 73,
+  "installation_neuve": true,
+  "pip_check": "ok",
+  "tests": 67,
+  "echecs": 0,
+  "autre_ordinateur_verifie": false
+}

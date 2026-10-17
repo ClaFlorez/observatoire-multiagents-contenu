@@ -1,0 +1,10 @@
+Content,Video title,Video publish time,Duration,Views,Watch time (hours),Subscribers,Average view duration,Thumbnail impressions,Thumbnail click-through rate (%)
+Total,,,,560,5.6,0,0:00:30,3600,2
+DEMO0000001,Exemple fictif 1,2026-08-01,120,20,0.2,0,0:00:30,100,2
+DEMO0000002,Exemple fictif 2,2026-08-01,120,40,0.4,0,0:00:30,200,2
+DEMO0000003,Exemple fictif 3,2026-08-01,120,60,0.6,0,0:00:30,300,2
+DEMO0000004,Exemple fictif 4,2026-08-01,120,80,0.8,0,0:00:30,400,2
+DEMO0000005,Exemple fictif 5,2026-08-01,120,100,1.0,0,0:00:30,500,2
+DEMO0000006,Exemple fictif 6,2026-08-01,120,120,1.2,0,0:00:30,600,2
+DEMO0000007,Exemple fictif 7,2026-08-01,120,140,1.4,0,0:00:30,700,2
+DEMO0000008,Exemple fictif 8,2026-08-01,120,,,0,0:00:30,800,2

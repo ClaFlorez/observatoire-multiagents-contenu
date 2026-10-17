@@ -1,0 +1,49 @@
+# Secrets et autorisations
+.env
+.env.*
+!.env.example
+.streamlit/secrets.toml
+credentials*.json
+client_secret*.json
+token*.json
+*.pem
+*.key
+
+# Données réelles et stockage local
+*.csv
+!data/examples/*.csv
+*.db
+*.db-*
+*.sqlite
+*.sqlite3
+*.sqlite3-*
+data/private/
+data/raw/
+data/processed/
+traces/
+logs/
+exports/
+docs/rapport_projet/
+youtube_csv/
+
+# Environnements et caches
+.local/
+.venv/
+venv/
+__pycache__/
+*.py[cod]
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+.coverage
+htmlcov/
+
+# Fichiers temporaires et éditeurs
+~$*
+*.tmp
+.DS_Store
+Thumbs.db
+.idea/
+*.log
+docs/guide_didactique/travail/
+livraison/*.zip
