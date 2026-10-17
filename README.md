@@ -4,6 +4,10 @@ Projet individuel du cours **420-VD2-ID — Visualisation et interprétation des
 
 L’application doit analyser des statistiques YouTube et permettre d’observer comment quatre agents collaborent, consomment des ressources et produisent des recommandations vérifiées. Elle vise les créateurs de contenu qui souhaitent préparer leurs prochaines décisions éditoriales à partir de mesures.
 
+## Période de réalisation
+
+Le projet a été réalisé sur trois jours calendaires, du **15 au 17 octobre 2026**. Le temps de travail en heures n’a pas été comptabilisé. Cette période ne correspond pas à trois jours de travail continu ni à la seule durée des exécutions IA.
+
 ## État du projet
 
 **État au 16 octobre 2026 : campagne réalisée et évaluée.** Vingt exécutions sur cinq scénarios et vingt évaluations sont conservées localement. Dix-neuf essais sont automatiquement validés ; un refus lexical reste documenté. Les vues comprennent graphe, timeline, Sankey, comparaisons, carte thermique et indicateurs de campagne. Les 67 tests locaux passent. La connexion AgentOps est vérifiée sur un pilote fictif séparé : résumé après exécution avec une session et cinq étapes, sans instrumentation native LLM. Voir [la connexion et ses limites](docs/connexion_agentops.md).
