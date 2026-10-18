@@ -170,3 +170,9 @@ Dans Contenu par vidéo, **Choisir un CSV — data ou YouTube** ouvre une fenêt
 Le suivi des agents affiche la tâche, sa description, le temps écoulé et les jetons confirmés après chaque appel. Le test simple de Qwen affiche aussi un suivi d’attente. Le rapport contient une annexe SQLite aux pages 133 et 134.
 
 Les vidéos et leurs textes sont dans `docs/video_explicatif/`. La vidéo principale de 168 Mo est jointe à la publication GitHub `tp-2026-10-18` plutôt que stockée dans Git.
+
+## Vidéo de présentation du TP
+
+[Voir la vidéo sur Google Drive](https://drive.google.com/file/d/1Y5Ofzn-5Ix4BFF4RkmU6pXsRQNbGiZ8z/view?usp=drive_link). L’accès dépend des autorisations du fichier Drive.
+
+Une copie est également disponible dans la [publication du 18 octobre 2026](https://github.com/ClaFlorez/observatoire-multiagents-contenu/releases/tag/tp-2026-10-18).
