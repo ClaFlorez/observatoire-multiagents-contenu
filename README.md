@@ -153,8 +153,20 @@ Auteur : **ClaFlorez**. L’identité visuelle CLAUD·IA utilisera le logo fourn
 Le paquet de remise contient le code, les tests, des CSV fictifs, le rapport et la présentation. Il exclut les clés, journaux, environnements, modèles et bases réelles. Les preuves de la campagne se trouvent dans le rapport ; la base privée complète n’est pas distribuée automatiquement. Voir VERIFICATION_REMISE.md pour les contrôles et réserves.
 # Guide didactique et livraison
 
-Commencer par [le guide pas à pas en français](docs/guide_didactique/Guide_pas_a_pas_Observatoire.docx) : 14 pages avec installation Windows, choix des vidéos, résultats attendus, versions logicielles, spécifications techniques et références officielles.
+Commencer par [le guide pas à pas en français](docs/guide_didactique/Guide_pas_a_pas_Observatoire-instalation.docx) : 14 pages avec installation Windows, choix des vidéos, résultats attendus, versions logicielles, spécifications techniques et références officielles.
 
 Le paquet complet est disponible dans `livraison/Observatoire_multiagents_remise_2026-10-17_avec_guide.zip`. Le rapport et la présentation sont dans `docs/rapport_projet/`. Les CSV réels, les bases privées, les clés et le modèle téléchargé sont exclus du dépôt et du paquet.
 
 Voir aussi [le dictionnaire des programmes et de leurs interactions](docs/dictionnaire_programmes.md), avec sa [version Word illustrée en six pages](docs/guide_didactique/Dictionnaire_programmes_et_processus.docx).
+
+## Navigation et sélection des CSV
+
+Le menu latéral mène directement au tableau de bord, aux graphiques, aux scénarios et aux exécutions. Le tableau de bord distingue les compteurs de toute la base des statistiques du CSV chargé.
+
+Dans Contenu par vidéo, **Choisir un CSV — data ou YouTube** ouvre une fenêtre permettant de choisir `data/` ou `youtube_csv/`. Ouvrir un sous-dossier, sélectionner le CSV puis cliquer **Utiliser ce CSV**. Le chemin est rempli sans lancer l’import. Confirmer ensuite les dates et charger le rapport. Le même sélecteur est disponible pour le CSV précédent de S3. Les exemples vidéo sont dans `data/examples/videos/`.
+
+## Mise à jour du 18 octobre 2026
+
+Le suivi des agents affiche la tâche, sa description, le temps écoulé et les jetons confirmés après chaque appel. Le test simple de Qwen affiche aussi un suivi d’attente. Le rapport contient une annexe SQLite aux pages 133 et 134.
+
+Les vidéos et leurs textes sont dans `docs/video_explicatif/`. La vidéo principale de 168 Mo est jointe à la publication GitHub `tp-2026-10-18` plutôt que stockée dans Git.

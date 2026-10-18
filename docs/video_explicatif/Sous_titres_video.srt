@@ -1,0 +1,79 @@
+1
+00:00:00,000 --> 00:00:30,000
+Objectif : expliquer le système et retrouver l’origine de chaque réponse.
+
+2
+00:00:30,000 --> 00:01:00,000
+CrewAI organise le travail ; les outils Python calculent les chiffres.
+
+3
+00:01:00,000 --> 00:01:30,000
+Les imports relient app.py aux autres fichiers Python.
+
+4
+00:01:30,000 --> 00:02:00,000
+Choisir une vue ou un filtre ne signifie pas relancer Qwen3.
+
+5
+00:02:00,000 --> 00:02:30,000
+Le lancement transmet une mission précise au worker local.
+
+6
+00:02:30,000 --> 00:03:00,000
+Un agent est un rôle configuré dans CrewAI, pas un modèle différent.
+
+7
+00:03:00,000 --> 00:03:30,000
+Le code définit cinq tâches pour quatre agents.
+
+8
+00:03:30,000 --> 00:04:00,000
+agent_index choisit le rôle ; Process.sequential impose la séquence.
+
+9
+00:04:00,000 --> 00:04:30,000
+Un appel est une requête au modèle ; une tâche peut nécessiter plusieurs appels.
+
+10
+00:04:30,000 --> 00:05:00,000
+Le Coordonnateur produit une réponse de cadrage via Qwen3.
+
+11
+00:05:00,000 --> 00:05:30,000
+Chercheur : Qwen demande l’outil ; Python fournit la provenance.
+
+12
+00:05:30,000 --> 00:06:00,000
+Analyste : la réponse chiffrée vient du calculateur Python.
+
+13
+00:06:00,000 --> 00:06:30,000
+Le classement S1 est déterministe et calculé sur l’import complet.
+
+14
+00:06:30,000 --> 00:07:00,000
+Vérificateur : un outil Python contrôle les chiffres et retourne le verdict.
+
+15
+00:07:00,000 --> 00:07:30,000
+La synthèse utilise Qwen3, mais sa formulation et ses valeurs sont contraintes par Python.
+
+16
+00:07:30,000 --> 00:08:00,000
+Les traces permettent de relier chaque réponse à sa tâche et à son outil.
+
+17
+00:08:00,000 --> 00:08:30,000
+Les tokens de sortie mesurent Qwen, pas tous les résultats produits par Python.
+
+18
+00:08:30,000 --> 00:09:00,000
+Séparer les étapes, les appels au modèle et les appels aux outils.
+
+19
+00:09:00,000 --> 00:09:30,000
+AgentOps complète les traces locales ; il ne les remplace pas.
+
+20
+00:09:30,000 --> 00:10:00,000
+CrewAI orchestre ; Qwen sollicite et répond ; Python calcule, vérifie et conserve les preuves.

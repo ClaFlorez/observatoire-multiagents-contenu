@@ -13,17 +13,20 @@ from observatoire.vue_demonstration import afficher_demonstration
 from observatoire.vue_essai_local import afficher_essai_local
 from observatoire.vue_agents_locaux import afficher_agents_locaux
 from observatoire.vue_videos import afficher_videos
+from observatoire.vue_navigation import afficher_navigation, afficher_dashboard, ancre, appliquer_style
 
 
 ROOT = Path(__file__).resolve().parent
 DATABASE = ROOT / 'data' / 'private' / 'observatoire.sqlite'
 st.set_page_config(page_title='Observatoire de contenu', layout='wide')
+appliquer_style()
 st.title('Observatoire multiagents de contenu numérique')
 st.caption('Prototype local — import et audience YouTube')
 st.info('L’audience et la simulation fonctionnent sans modèle. Les essais IA et les quatre agents CrewAI locaux se lancent séparément en bas de page. Aucun service IA payant n’est appelé.')
 
 with st.sidebar:
     export_type = st.selectbox('Type de rapport', ['Audience par pays', 'Contenu par vidéo'], key='type_rapport')
+afficher_navigation(export_type == 'Contenu par vidéo')
 if export_type == 'Contenu par vidéo':
     afficher_videos(ROOT, DATABASE)
     st.stop()
@@ -60,12 +63,15 @@ with st.sidebar:
         st.caption('Aucun import sauvegardé.')
 
 if 'resultat' not in st.session_state:
+    afficher_dashboard(DATABASE)
     st.write('Commencer par charger les fichiers fictifs fournis ou le dossier local de vos exports YouTube Studio.')
     st.stop()
 
 result = st.session_state['resultat']
 summary = result['resume']
 datasets = result['donnees']
+afficher_dashboard(DATABASE)
+ancre('qualite-audience')
 st.subheader('Qualité et provenance')
 st.write(f"Origine : **{summary['origine']}** · période totale : **{summary['periode']['debut']} au {summary['periode']['fin']}**")
 if summary['origine'] == 'fictive':
@@ -86,7 +92,7 @@ with st.expander('Provenance des fichiers et limites'):
     for limit in summary['limites']:
         st.write('• ' + limit)
 
-st.subheader('Audience et évolution')
+st.subheader('Audience et évolution', anchor='audience-graphiques')
 chart = datasets['Chart data.csv']
 daily = datasets['Totals.csv']
 table = datasets['Table data.csv']
@@ -135,7 +141,10 @@ with st.expander('Statistiques agrégées par pays — période complète de l�
     ], width='stretch')
 
 st.divider()
+ancre('simulation-roles')
 afficher_demonstration(result, DATABASE)
 st.caption('Les visualisations de simulation et d’audience ne remplacent pas la campagne réelle exigée. Les premiers agents locaux sont disponibles dans une section distincte ci-dessous.')
+ancre('essai-modele')
 afficher_essai_local()
+ancre('agents-audience')
 afficher_agents_locaux(result, DATABASE)

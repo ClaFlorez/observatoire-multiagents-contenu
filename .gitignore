@@ -9,7 +9,7 @@ token*.json
 *.pem
 *.key
 
-# Données réelles et stockage local
+# DonnÃ©es rÃ©elles et stockage local
 *.csv
 !data/examples/*.csv
 *.db
@@ -38,7 +38,7 @@ __pycache__/
 .coverage
 htmlcov/
 
-# Fichiers temporaires et éditeurs
+# Fichiers temporaires et Ã©diteurs
 ~$*
 *.tmp
 .DS_Store
@@ -47,3 +47,8 @@ Thumbs.db
 *.log
 docs/guide_didactique/travail/
 livraison/*.zip
+
+# Site publié séparément et préférences locales
+sites/
+.vscode/
+video_TP_visualisation_des_donnees.mp4

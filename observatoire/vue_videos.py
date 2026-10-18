@@ -12,6 +12,8 @@ from observatoire.vue_comparaison import afficher_comparaison
 from observatoire.vue_scenarios import afficher_preparation
 from observatoire.vue_s1 import afficher_s1
 from observatoire.vue_campagne import afficher_campagne
+from observatoire.vue_navigation import afficher_dashboard, ancre
+from observatoire.vue_fichiers import afficher_choix_csv
 
 
 def afficher_videos(root, database=None):
@@ -21,7 +23,9 @@ def afficher_videos(root, database=None):
         default_path = root / 'youtube_csv' / 'setp-oct' / 'Table data.csv'
         if not default_path.exists():
             default_path = root / 'youtube_csv' / 'Table data.csv'
-        path = st.text_input('Fichier CSV par vidéo', str(default_path), key='video_fichier')
+        afficher_choix_csv(root, 'video_fichier')
+        st.session_state.setdefault('video_fichier', str(default_path))
+        path = st.text_input('Fichier CSV par vidéo', key='video_fichier')
         origin = st.selectbox('Origine du fichier vidéo', ['reelle', 'fictive'], key='video_origine')
         period = st.date_input('Période statistique confirmée dans YouTube Studio',
                                value=(date(2026, 9, 17), date(2026, 10, 14)), key='video_periode')
@@ -37,15 +41,15 @@ def afficher_videos(root, database=None):
                     st.error(str(exc))
     report = st.session_state.get('import_videos')
     if report is None:
+        afficher_dashboard(database or root / 'data' / 'private' / 'observatoire.sqlite')
         st.write('Vérifier le chemin et le même intervalle que dans YouTube Studio, confirmer puis charger la table. Les fichiers Chart data et Totals ne sont pas nécessaires à cette vue.')
         return
     st.write(f"Origine : **{report['origine']}** · période déclarée : **{report['periode']['debut']} au {report['periode']['fin']}**")
     if report['origine'] == 'fictive':
         st.warning('Données fictives : développement uniquement.')
-    cols = st.columns(3)
-    cols[0].metric('Vidéos dans le fichier', len(report['videos']))
-    cols[1].metric('Vues — ligne Total', report['total']['vues'] if report['total']['vues'] is not None else 'Indisponible')
-    cols[2].metric('Visionnage — heures, ligne Total', str(report['total']['heures']) if report['total']['heures'] is not None else 'Indisponible')
+    destination = database or root / 'data' / 'private' / 'observatoire.sqlite'
+    afficher_dashboard(destination, report)
+    ancre('qualite-videos')
     with st.expander('Qualité et provenance', expanded=True):
         for warning in report['avertissements']:
             st.warning(warning)
@@ -53,6 +57,7 @@ def afficher_videos(root, database=None):
                       for item in report['rapprochements']], width='stretch', hide_index=True)
         st.caption('Les indicateurs de la ligne Total ne sont pas recalculés par les filtres ci-dessous. Une somme connue peut être égale au total tout en contenant des cellules absentes.')
         st.json(report['fichier'])
+    st.subheader('Classement des vidéos', anchor='classement-videos')
     query = st.text_input('Filtrer les vidéos par titre ou identifiant', key='video_recherche').strip().casefold()
     metrics = {'Vues': ('vues', 'vues'), 'Temps de visionnage': ('heures', 'heures'), 'Impressions de miniature': ('impressions', 'impressions')}
     selected_metric = st.selectbox('Indicateur de classement', list(metrics), key='video_mesure')
@@ -74,8 +79,13 @@ def afficher_videos(root, database=None):
     st.caption(f'{len(filtered)} vidéo(s) correspondent à la recherche. Les cellules absentes restent indisponibles. Les durées sont en secondes ; les heures et les taux de clics conservent leur unité.')
     st.dataframe([{key: (str(value) if value is not None else None) for key, value in video.items()} for video in filtered], width='stretch', hide_index=True)
     destination = database or root / 'data' / 'private' / 'observatoire.sqlite'
+    ancre('scenario-s1')
     afficher_s1(report, destination)
+    ancre('scenarios-s2-s4')
     afficher_preparation(report, root, destination)
+    ancre('scenario-s3')
     afficher_comparaison(root, report, destination)
+    ancre('agents-videos')
     afficher_agents_locaux(report, destination, 'videos')
+    ancre('campagne-evaluee')
     afficher_campagne(root, report, destination)

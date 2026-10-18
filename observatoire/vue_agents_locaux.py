@@ -33,12 +33,38 @@ def afficher_agents_locaux(resultat, database, type_rapport='geographie'):
     else:
         st.caption('Mission : identifier le pays en tête en vues engagées, contrôler les totaux et formuler les limites. L’import complet est utilisé, indépendamment des filtres d’audience. Prévoir plusieurs minutes ; plafond de dix minutes et douze appels locaux.')
     if st.button('Lancer les quatre agents IA locaux — 0 USD API', key='lancer_agents_locaux' + suffix):
+        suivi = st.empty()
+        def progression(current, elapsed):
+            current = current or {}
+            steps = current.get('etapes', [])
+            active = next((s for s in steps if s['etat'] == 'en_cours'), None)
+            terminees = sum(s['etat'] == 'terminee' for s in steps)
+            appels = current.get('appels', [])
+            entree = sum(c.get('jetons_entree') or 0 for c in appels)
+            sortie = sum(c.get('jetons_sortie') or 0 for c in appels)
+            phase = (f"{active['agent']} · {active['tache']}" if active else
+                     'Finalisation et contrôles' if steps and terminees == len(steps) else 'Préparation de CrewAI')
+            descriptions = {
+                'Cadrage': 'Le coordonnateur définit la mission et les consignes transmises aux autres agents.',
+                'Provenance': 'Le chercheur consulte l’outil local pour identifier l’import, sa période et ses limites.',
+                'Calcul': 'L’analyste sollicite l’outil Python qui calcule les indicateurs à partir des données importées.',
+                'Vérification': 'Le vérificateur sollicite les contrôles Python indépendants et transmet les écarts ou réserves.',
+                'Synthèse': 'Le coordonnateur prépare la réponse finale à partir des résultats et du rapport de vérification.',
+            }
+            description = (descriptions.get(active['tache'], 'Exécution de la tâche attribuée.') if active else
+                           'Le système termine les contrôles et prépare l’affichage du résultat.'
+                           if steps and terminees == len(steps) else
+                           'Le système démarre le processus local et prépare les agents et leurs tâches.')
+            suivi.info(f"{phase}\n\n{description}\n\nTemps écoulé : {elapsed:.0f} s | Tâches terminées : {terminees}/5 | "
+                       f"Jetons confirmés — entrée : {entree}, sortie : {sortie}")
+        st.caption('Suivi actualisé environ chaque seconde. Les jetons sont confirmés à la fin de chaque appel Ollama ; ils ne sont pas comptés en direct pendant sa génération.')
         try:
             with st.spinner('Les agents travaillent sur le processeur local. Ne pas fermer cette session…'):
-                trace = lancer_agents(resultat, database)
+                trace = lancer_agents(resultat, database, progression=progression)
         except (RuntimeError, ValueError, OSError, sqlite3.Error) as exc:
             st.error(f'Lancement non terminé ({type(exc).__name__}). Vérifier le moteur local et les dépendances. Aucun repli vers une API payante.')
         else:
+            suivi.empty()
             st.session_state['derniere_execution_ia' + suffix] = trace['id']
             if trace['etat'] == 'terminee':
                 st.success('Les cinq tâches ont été exécutées et les contrôles minimaux d’intégration ont réussi.')

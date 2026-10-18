@@ -9,6 +9,7 @@ from observatoire.import_videos import importer_videos
 from observatoire.import_youtube import ImportInvalide
 from observatoire.stockage import enregistrer_import_videos
 from observatoire.vue_agents_locaux import afficher_agents_locaux
+from observatoire.vue_fichiers import afficher_choix_csv
 
 
 def afficher_comparaison(root, current, database):
@@ -16,7 +17,9 @@ def afficher_comparaison(root, current, database):
     st.subheader('Comparer deux périodes — scénario S3')
     st.caption('La comparaison Python ne lance aucun appel IA. Après chargement, un bouton distinct permet de lancer les quatre agents locaux sur ces deux instantanés.')
     with st.expander('Charger la période précédente'):
-        path = st.text_input('CSV vidéo de référence', str(root / 'youtube_csv' / 'aout-sept' / 'Table data.csv'), key='comparaison_fichier')
+        afficher_choix_csv(root, 'comparaison_fichier', 'Choisir le CSV précédent dans data')
+        st.session_state.setdefault('comparaison_fichier', str(root / 'youtube_csv' / 'aout-sept' / 'Table data.csv'))
+        path = st.text_input('CSV vidéo de référence', key='comparaison_fichier')
         dates = st.date_input('Période de référence déclarée dans YouTube Studio',
                               value=(date(2026, 8, 20), date(2026, 9, 16)), key='comparaison_dates')
         confirmed = st.checkbox('Je confirme les dates de cet export de référence', key='comparaison_confirmation')

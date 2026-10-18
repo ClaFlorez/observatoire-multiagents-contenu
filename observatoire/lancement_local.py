@@ -7,6 +7,7 @@ import subprocess
 import sys
 from threading import Lock
 from uuid import uuid4
+from time import monotonic
 
 from observatoire.securite_locale import environnement_local
 from observatoire.stockage import enregistrer_execution_reelle, enregistrer_import, lire_executions_reelles
@@ -16,7 +17,7 @@ from observatoire.stockage import enregistrer_import_videos
 RUN_LOCK = Lock()
 
 
-def lancer_agents(resultat, destination, configuration_id='T0', repetition=1, campagne_id=None, run_id=None):
+def lancer_agents(resultat, destination, configuration_id='T0', repetition=1, campagne_id=None, run_id=None, progression=None):
     from observatoire.configurations import configuration
     configuration(configuration_id, repetition)
     if not RUN_LOCK.acquire(blocking=False):
@@ -51,8 +52,28 @@ def lancer_agents(resultat, destination, configuration_id='T0', repetition=1, ca
             command += ['--campagne-id', campagne_id]
         timed_out = False
         try:
-            subprocess.run(command, cwd=root, env=environnement_local(root),
-                           stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL, timeout=600, check=False)
+            if progression is None:
+                subprocess.run(command, cwd=root, env=environnement_local(root),
+                               stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL, timeout=600, check=False)
+            else:
+                debut = monotonic()
+                with subprocess.Popen(command, cwd=root, env=environnement_local(root),
+                                      stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL) as worker:
+                    try:
+                        while worker.poll() is None:
+                            elapsed = monotonic() - debut
+                            if elapsed >= 600:
+                                raise subprocess.TimeoutExpired(command, 600)
+                            current = next((t for t in lire_executions_reelles(destination) if t['id'] == run_id), None)
+                            progression(current, elapsed)
+                            try:
+                                worker.wait(timeout=min(1, 600 - elapsed))
+                            except subprocess.TimeoutExpired:
+                                pass
+                    finally:
+                        if worker.poll() is None:
+                            worker.kill()
+                            worker.wait()
         except subprocess.TimeoutExpired:
             timed_out = True
         trace = next((t for t in lire_executions_reelles(destination) if t['id'] == run_id), None)
