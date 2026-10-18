@@ -176,3 +176,7 @@ Les vidéos et leurs textes sont dans `docs/video_explicatif/`. La vidéo princi
 [Voir la vidéo sur Google Drive](https://drive.google.com/file/d/1Y5Ofzn-5Ix4BFF4RkmU6pXsRQNbGiZ8z/view?usp=drive_link). L’accès dépend des autorisations du fichier Drive.
 
 Une copie est également disponible dans la [publication du 18 octobre 2026](https://github.com/ClaFlorez/observatoire-multiagents-contenu/releases/tag/tp-2026-10-18).
+
+## Dossier partagé sur Google Drive
+
+[Ouvrir le dossier Drive partagé pour le TP](https://drive.google.com/drive/folders/1wVyWnd0xdfHSAxGqHloYZQPd2P9JN2u1?usp=drive_link). L’accès et les fichiers disponibles dépendent des autorisations et du contenu du dossier Drive.
